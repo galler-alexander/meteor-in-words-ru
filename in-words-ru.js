@@ -5,7 +5,7 @@
 
 toInRuWords = function(number) {
   var gender, tens_digit, unit_digit, leading_zero_count, outputs, level,
-    triple, _ref;
+    triple, _ref, decimals, number_length;
   var zero = 'ноль';
   var ten = [
     ['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь',
@@ -44,23 +44,25 @@ toInRuWords = function(number) {
     } else {
       return false;
     }
-  };
+  }
   //проверка типа и значения меньше 0
   if (!number || typeof(number) !== 'number' || isNaN(number) || number < 0) {
       return false;
-  };
+  }
 
   //разбираем на целое и дробное
-  _ref = number.toFixed(2).split('.'), number = _ref[0], decimals = _ref[1];
+  _ref = number.toFixed(2).split('.');
+  number = _ref[0];
+  decimals = _ref[1];
 
   //проверка на слишком большое число
   if ((leading_zero_count = (unit.length - 1) * 3 - number.length) < 0) {
     return false;
-  };
+  }
 
   //дополняем к числу лидирующие нули, количество цифр делаем кратно 3
   leading_zero_count = leading_zero_count % 3;
-  number = Array(leading_zero_count + 1).join('0') + number;
+  number = new Array(leading_zero_count + 1).join('0') + number;
 
   outputs = [];
   number_length = number.length;
